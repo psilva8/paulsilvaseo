@@ -171,6 +171,7 @@ body {
     border: none;
     animation: pulse 2s infinite;
     z-index: 10;
+    filter: none;
 }
 
 .status-dot::before {
@@ -183,6 +184,7 @@ body {
     border-radius: 50%;
     background: rgba(16, 185, 129, 0.4);
     animation: pulse-ring 2s infinite;
+    filter: none;
 }
 
 @keyframes pulse {
