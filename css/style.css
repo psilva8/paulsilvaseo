@@ -294,20 +294,217 @@ body {
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.portfolio-item {
+/* Case Study Cards */
+.case-study-card {
     background: white;
+    border-radius: 15px;
     padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
 }
 
-.portfolio-item h3 {
-    margin-bottom: 1rem;
+.case-study-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.case-study-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+/* Case Study Header */
+.case-study-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.industry-tag {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.industry-tag.ecommerce {
+    background: rgba(236, 72, 153, 0.1);
+    color: #be185d;
+}
+
+.industry-tag.local-service {
+    background: rgba(34, 197, 94, 0.1);
+    color: #15803d;
+}
+
+.industry-tag.healthcare {
+    background: rgba(59, 130, 246, 0.1);
+    color: #1d4ed8;
+}
+
+.duration {
+    font-size: 0.9rem;
+    color: var(--light-text);
+    font-weight: 500;
+}
+
+.case-study-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+/* Case Study Sections */
+.challenge-section,
+.strategy-section,
+.results-section {
+    margin-bottom: 1.5rem;
+}
+
+.challenge-section h4,
+.strategy-section h4,
+.results-section h4 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.challenge-section h4 i {
+    color: #ef4444;
+}
+
+.strategy-section h4 i {
+    color: #f59e0b;
+}
+
+.results-section h4 i {
+    color: #10b981;
+}
+
+.challenge-section p {
+    color: var(--light-text);
+    line-height: 1.6;
+}
+
+.strategy-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.strategy-section li {
+    color: var(--light-text);
+    margin-bottom: 0.4rem;
+    padding-left: 1.2rem;
+    position: relative;
+}
+
+.strategy-section li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
     color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.metric {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(37, 99, 235, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.metric-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--light-text);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Progress Bars */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(37, 99, 235, 0.1);
+    border-radius: 3px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 3px;
+    transition: width 1.5s ease-in-out;
+    width: 0;
+}
+
+/* Progress bar animations are now handled by JavaScript Intersection Observer */
+
+/* Case Study Footer */
+.case-study-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.view-case-study {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.view-case-study:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
 
 /* Contact Section */
@@ -427,6 +624,26 @@ textarea {
     .services-grid,
     .portfolio-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .case-study-card {
+        padding: 1.5rem;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .case-study-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .metric-value {
+        font-size: 1.5rem;
     }
 
     .footer-content {
