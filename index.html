@@ -206,17 +206,47 @@
     <section id="contact" class="contact">
         <div class="container">
             <h2>Get in Touch</h2>
-            <form id="contact-form">
+            <form id="contact-form" action="https://formspree.io/paul@paulsilvamarketing.com" method="POST">
                 <div class="form-group">
                     <input type="text" name="name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="email" name="_replyto" placeholder="Your Email" required>
                 </div>
                 <div class="form-group">
-                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <input type="text" name="company" placeholder="Company (Optional)">
                 </div>
-                <button type="submit" class="submit-button">Send Message</button>
+                <div class="form-group">
+                    <input type="text" name="phone" placeholder="Phone Number (Optional)">
+                </div>
+                <div class="form-group">
+                    <select name="service" required>
+                        <option value="">What service are you interested in?</option>
+                        <option value="SEO Audit">SEO Audit</option>
+                        <option value="Technical SEO">Technical SEO</option>
+                        <option value="Content Strategy">Content Strategy</option>
+                        <option value="Link Building">Link Building</option>
+                        <option value="Local SEO">Local SEO</option>
+                        <option value="Consultation">General Consultation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="Tell me about your business and SEO goals..." required rows="5"></textarea>
+                </div>
+                
+                <!-- Hidden fields for better email organization -->
+                <input type="hidden" name="_subject" value="New SEO Lead from Website">
+                <input type="hidden" name="_next" value="https://psilva8.github.io/paulsilvaseo/#contact">
+                <input type="text" name="_gotcha" style="display:none">
+                
+                <button type="submit" class="submit-button">
+                    <span class="button-text">Send Message</span>
+                    <span class="button-spinner" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i> Sending...
+                    </span>
+                </button>
+                
+                <div id="form-status" class="form-status"></div>
             </form>
         </div>
     </section>

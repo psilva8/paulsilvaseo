@@ -38,25 +38,114 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form Submission
+// Enhanced Form Submission with Formspree
 const contactForm = document.getElementById('contact-form');
+const submitButton = contactForm.querySelector('.submit-button');
+const formStatus = document.getElementById('form-status');
 
 contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const formData = new FormData(contactForm);
-    const formProps = Object.fromEntries(formData);
+    // Show loading state
+    setFormLoading(true);
+    hideFormStatus();
     
-    // Here you would typically send the form data to your backend
-    // For now, we'll just log it and show a success message
-    console.log('Form submitted:', formProps);
-    
-    // Show success message
-    alert('Thank you for your message! I will get back to you soon.');
-    
-    // Clear form
-    contactForm.reset();
+    try {
+        const formData = new FormData(contactForm);
+        
+        // Submit to Formspree
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
+        if (response.ok) {
+            showFormStatus('success', 
+                '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. I\'ll get back to you within 24 hours.'
+            );
+            contactForm.reset();
+            
+            // Track successful submission (you can add analytics here)
+            console.log('Form submitted successfully');
+            
+        } else {
+            const data = await response.json();
+            if (data.errors) {
+                const errorMessages = data.errors.map(error => error.message).join(', ');
+                throw new Error(errorMessages);
+            } else {
+                throw new Error('Something went wrong. Please try again.');
+            }
+        }
+        
+    } catch (error) {
+        console.error('Form submission error:', error);
+        showFormStatus('error', 
+            '<i class="fas fa-exclamation-triangle"></i> Sorry, there was an error sending your message. Please try again or email me directly at paul@paulsilvamarketing.com'
+        );
+    } finally {
+        setFormLoading(false);
+    }
 });
+
+function setFormLoading(loading) {
+    if (loading) {
+        submitButton.classList.add('loading');
+        submitButton.disabled = true;
+    } else {
+        submitButton.classList.remove('loading');
+        submitButton.disabled = false;
+    }
+}
+
+function showFormStatus(type, message) {
+    formStatus.className = `form-status ${type}`;
+    formStatus.innerHTML = message;
+    formStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideFormStatus() {
+    formStatus.className = 'form-status';
+    formStatus.innerHTML = '';
+}
+
+// Form validation enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    const formInputs = contactForm.querySelectorAll('input, textarea, select');
+    
+    formInputs.forEach(input => {
+        // Real-time validation feedback
+        input.addEventListener('blur', () => {
+            validateField(input);
+        });
+        
+        input.addEventListener('input', () => {
+            // Clear any previous error styling
+            input.style.borderColor = '';
+        });
+    });
+});
+
+function validateField(field) {
+    if (field.hasAttribute('required') && !field.value.trim()) {
+        field.style.borderColor = '#ef4444';
+        return false;
+    }
+    
+    if (field.type === 'email' && field.value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(field.value)) {
+            field.style.borderColor = '#ef4444';
+            return false;
+        }
+    }
+    
+    field.style.borderColor = '#10b981';
+    return true;
+}
 
 // Audit Viewer Functionality
 class AuditViewer {

@@ -599,17 +599,34 @@ body {
     margin-bottom: 1.5rem;
 }
 
-input, textarea {
+input, textarea, select {
     width: 100%;
     padding: 1rem;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 textarea {
-    height: 150px;
+    height: 120px;
     resize: vertical;
+}
+
+select {
+    background-color: white;
+    cursor: pointer;
+}
+
+select option {
+    padding: 0.5rem;
 }
 
 .submit-button {
@@ -626,6 +643,57 @@ textarea {
 
 .submit-button:hover {
     background: var(--secondary-color);
+}
+
+.submit-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.submit-button .button-spinner {
+    display: none;
+}
+
+.submit-button.loading .button-text {
+    display: none;
+}
+
+.submit-button.loading .button-spinner {
+    display: inline-block;
+}
+
+/* Form Status Messages */
+.form-status {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    display: none;
+}
+
+.form-status.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #065f46;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    display: block;
+}
+
+.form-status.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #991b1b;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    display: block;
+}
+
+.form-status.success i {
+    color: #10b981;
+    margin-right: 0.5rem;
+}
+
+.form-status.error i {
+    color: #ef4444;
+    margin-right: 0.5rem;
 }
 
 /* Footer */
