@@ -279,6 +279,7 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
+    order: 2;
 }
 
 .about-photo {
@@ -310,7 +311,8 @@ body {
 }
 
 .about-text {
-    padding-left: 1rem;
+    order: 1;
+    padding-right: 1rem;
 }
 
 .about-text p {
@@ -921,7 +923,7 @@ select option {
 
     .about-text {
         order: 2;
-        padding-left: 0;
+        padding-right: 0;
     }
 
     .about-photo {
